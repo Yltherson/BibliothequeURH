@@ -33,7 +33,7 @@ public class PretLivre {
         return idEtu;
     }
     
-    public int getnumL(){
+    public int getNumL(){
         return numL;
     }
     
@@ -65,5 +65,10 @@ public class PretLivre {
     
     public void setDateL(String dateL){
         this.dateLimit = dateL;
+    }
+    
+    public void printObjP(){
+        System.out.println("ID : "+getIdP()+"\nNOM : "+getIdE()+"\nSEXE : "+getNumL()+
+                "\nFACULTE : "+getDateP()+"\nNIVEAU : "+getDateL());
     }
 }

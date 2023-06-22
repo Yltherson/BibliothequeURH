@@ -114,9 +114,9 @@ public class Adherant {
     }
     
     public void printObj(){
-        System.out.println("ID:"+getIdEtu()+"\n NOM: "+getNomEtu()+"\n SEXE: "+getSexe()+
-                "\n FACULTE: "+getFaculte()+"\n NIVEAU: "+getNiveau()+"\n EMAIL: "+getEmail()+
-                "\n TELEPHONE"+getPhone()+"\n ADRESSE: "+getAdresse());
+        System.out.println("ID : "+getIdEtu()+"\nNOM : "+getNomEtu()+"\nSEXE : "+getSexe()+
+                "\nFACULTE : "+getFaculte()+"\nNIVEAU : "+getNiveau()+"\nEMAIL : "+getEmail()+
+                "\nTELEPHONE : "+getPhone()+"\nADRESSE : "+getAdresse());
     }
 }
 

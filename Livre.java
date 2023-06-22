@@ -53,4 +53,9 @@ public class Livre {
     public void setAnnee(String nAnnee){
         this.titre = nAnnee;
     }
+    
+    public void printObjL(){
+        System.out.println("ID : "+getNumLivre()+"\nNOM : "+getTitre()+"\nSEXE : "+getAuteur()+
+                "\nFACULTE : "+getAnnee());
+    }
 }
