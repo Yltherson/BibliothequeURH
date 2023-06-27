@@ -55,7 +55,7 @@ public class Livre {
     }
     
     public void printObjL(){
-        System.out.println("ID : "+getNumLivre()+"\nNOM : "+getTitre()+"\nSEXE : "+getAuteur()+
-                "\nFACULTE : "+getAnnee());
+        System.out.println("NUMERO : "+getNumLivre()+"\nTITRE : "+getTitre()+"\nAUTEUR : "+getAuteur()+
+                "\nANNEE : "+getAnnee());
     }
 }

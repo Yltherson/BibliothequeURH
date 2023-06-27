@@ -68,7 +68,7 @@ public class PretLivre {
     }
     
     public void printObjP(){
-        System.out.println("ID : "+getIdP()+"\nNOM : "+getIdE()+"\nSEXE : "+getNumL()+
-                "\nFACULTE : "+getDateP()+"\nNIVEAU : "+getDateL());
+        System.out.println("NUMERO PRET : "+getIdP()+"\nID ETUDIANT : "+getIdE()+"\nNUMERO LIVRE : "+getNumL()+
+                "\nDATE PRET : "+getDateP()+"\nDATE REMISE : "+getDateL());
     }
 }
