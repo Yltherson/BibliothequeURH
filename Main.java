@@ -4,8 +4,9 @@
  */
 package biblioproject;
 import java.util.ArrayList;
-//import java.util.Iterator;
+import java.util.Iterator;
 import java.util.Scanner;
+
 /**
  *
  * @author PC
@@ -14,6 +15,7 @@ import java.util.Scanner;
 public class Main {
     static boolean val;
     static Scanner input = new Scanner(System.in);
+    
     /**
      *
      * @param args
@@ -21,7 +23,7 @@ public class Main {
     
 //    Fonction principal
     public static void main(String[] args){
-//        POUR L'INSTANT TOUT CE QUI SONT IMPLEMENTER ICI EST EN PHASE DE TEST
+        
         String reponse;
         do{
             System.out.println("""
@@ -35,38 +37,57 @@ public class Main {
                                6- afficher les prets
                                7- Supprimer etudiant
                                8- Modifier etudiant
+                               9- Supprimer un livre
+                               10- Modifier un livre
+                               11- Afficher un etudiant
+                               12- Afficher un livre
+                               13- Suprimer un pret
                                """);
             String choix = input.nextLine();
             switch(choix){
-                case "1":
-                    ajoutEtu();
-                    break;
-                case "2":
-                    ajoutLivre();
-                    break;
-                case "3":
-                    ajoutPret();
-                    break;
-                case "4":
-                    affichageEtudiant();
-                    break;
-                case "5":
-                    affichageLivre();
-                    break;
-                case "6":
-                    affichagePret();
-                    break;
-                case "7":
+                case "1" -> ajoutEtu();
+                case "2" -> ajoutLivre();
+                case "3" -> ajoutPret();
+                case "4" -> affichageEtudiant();
+                case "5" -> affichageLivre();
+                case "6" -> affichagePret();
+                case "7" -> {
                     System.out.println("Entrer l'id de l'etudiant a supprimer :");
-                    delEtudiant(input.nextInt());
-                    break;
-                case "8":
+                    int id = input.nextInt();
+                    input.nextLine();
+                    delEtudiant(id);
+                }
+                case "8" -> {
                     System.out.println("Entrer l'id de l'etudiant a modifier :\n");
                     modifierEt(input.nextInt());
-                    break;
-                default:
-                    System.out.println("Vous n'avez pas fait un choix valide!");
+                }
+                case "9" -> {
+                    System.out.println("Entrer le numero du livre a supprimer :");
+                    int num = input.nextInt();
+                    input.nextLine();
+                    supprimerLivre(num);
+                }
+                case "10" -> {
+                    System.out.println("Entrer le numero du livre a modifier : ");
+                    modifierL(input.nextInt());
+                }
+                case "11" -> {
+                    try{
+                        afficherUnEtudiant();
+                    }catch(Exception e){
+                        System.out.println("L'id est invalide");
+                    }
+                }
+                case "12" -> afficherUnLivre();
+                case "13" -> {
+                    System.out.println("Entrer le numero du pret a supprimer : ");
+                    int numPret = input.nextInt();
+                    input.nextLine();
+                    supprimerP(numPret);
+                }
+                default -> System.out.println("Vous n'avez pas fait un choix valide!");
             }
+            
             System.out.println("""
                                
                                Appuyer sur <<Y>> pour continuer le programme et
@@ -75,6 +96,7 @@ public class Main {
                                Appuyer sur n'importe quelle autre touche
                                sauf(power) pour quitter le programme.
                                """);
+            
             reponse = input.nextLine();
         }while("Y".equals(reponse.toUpperCase()));
         
@@ -315,12 +337,14 @@ public class Main {
     
 //    fonction supprimer etudiant
     public static void delEtudiant(int id){
+        Iterator<Adherant> it = LAdherant.iterator();
+        Adherant i;
 //        on verifie l'exitence de l'etudiant dans la liste avec la fonction
         if(verifE(id)){
-            for(Adherant dEt : LAdherant){
-                if(dEt.getIdEtu() == id){
-//                    suppression de l'etudiant de la liste
-                    LAdherant.remove(dEt);
+            while(it.hasNext()){
+                i = it.next();
+                if(i.getIdEtu() == id){
+                    it.remove();
                 }
             }
         }
@@ -364,6 +388,106 @@ public class Main {
         }
         else{
             System.out.println("Cet etudiant n'est pas encore enregistrer.");
+        }
+    }
+    
+    //fonction suppression de livre
+    static void supprimerLivre(int num){
+        Iterator<Livre> it = livreL.iterator();
+        Livre i;
+//        on verifie l'exitence de l'etudiant dans la liste avec la fonction
+        if(verifE(num)){
+            while(it.hasNext()){
+                i = it.next();
+                if(i.getNumLivre() == num){
+                    it.remove();
+                }
+            }
+        }
+        else{
+            System.out.println("Ce livre n'est pas encore enregistrer.");
+        }
+    }
+    
+    //fonction modifier livre
+    public static void modifierL(int num){
+        if(verifE(num)){
+            System.out.println("Entrer les nouvelles informations du livre.");
+            for(Livre lv : livreL){
+                if(lv.getNumLivre() == num){
+                    System.out.println("Entrer le numero du livre :");
+                    lv.setNum(input.nextInt());
+                    input.nextLine();
+                    
+                    System.out.println("Entrer le titre :");
+                    lv.setTitre(input.nextLine());
+                    
+                    System.out.println("Entrer l'auteur :");
+                    lv.setAuteur(input.nextLine());
+                    
+                    System.out.println("Entrer l'annee :");
+                    lv.setAnnee(input.nextLine());
+                }
+            }
+        }
+        else{
+            System.out.println("Cet etudiant n'est pas encore enregistrer.");
+        }
+    }
+    
+    //fonction permettant de supprimer un pret
+    public static void supprimerP(int idP){
+        Iterator<PretLivre> it = pretL.iterator();
+        PretLivre i;
+//        on verifie l'exitence de l'etudiant dans la liste avec la fonction
+        if(verifE(idP)){
+            while(it.hasNext()){
+                i = it.next();
+                if(i.getIdP() == idP){
+                    it.remove();
+                }
+            }
+        }
+        else{
+            System.out.println("Ce livre n'est pas encore enregistrer.");
+        }
+
+    }
+    
+//    fonction permettant d'afficher un etudiant
+    public static void afficherUnEtudiant(){
+        System.out.println("\nEntrer l'id de l'etudiant a afficher :\n");
+        int id = input.nextInt();
+        input.nextLine();
+        if(verifE(id)){
+            System.out.println("\nEtudiant\n");
+            for( Adherant Adr : LAdherant){
+                if(Adr.getIdEtu() == id){
+                    Adr.printObj();
+                }
+            }
+        }
+        
+    }
+    
+//    fonction pour afficher un livre
+    static void afficherUnLivre(){
+        System.out.println("Entrer le numero du livre a afficher :");
+        int num = input.nextInt();
+        input.nextLine();
+        Iterator<Livre> it = livreL.iterator();
+        Livre i;
+//        on verifie l'exitence de l'etudiant dans la liste avec la fonction
+        if(verifE(num)){
+            while(it.hasNext()){
+                i = it.next();
+                if(i.getNumLivre() == num){
+                    i.printObjL();
+                }
+            }
+        }
+        else{
+            System.out.println("Ce livre n'est pas encore enregistrer.");
         }
     }
     
